@@ -5,6 +5,9 @@ import CountUp from "../components/CountUp";
 import { FaPaperPlane, FaLocationDot, FaEnvelope, FaPhone, FaUser, FaRocket } from 'react-icons/fa6';
 import emailjs from '@emailjs/browser';
 
+// ── API URL FOR PRODUCTION ──
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = 'service_3jo7xbf';
 const EMAILJS_TEMPLATE_ID = 'template_kfeebjt';
@@ -73,7 +76,7 @@ export default function Home() {
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/notices");
+        const response = await fetch(`${API_URL}/api/notices`);
         const data = await response.json();
         setNotices(data.slice(0, 3));
         setLoading(false);
@@ -85,10 +88,10 @@ export default function Home() {
 
     const fetchStats = async () => {
       try {
-        const noticesRes = await fetch("http://localhost:8080/api/notices");
+        const noticesRes = await fetch(`${API_URL}/api/notices`);
         const noticesData = await noticesRes.json();
         
-        const usersRes = await fetch("http://localhost:8080/api/users");
+        const usersRes = await fetch(`${API_URL}/api/users`);
         const usersData = await usersRes.json();
         
         setStats({
